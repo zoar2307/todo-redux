@@ -15,7 +15,6 @@ export function login(credentials) {
         })
 }
 
-
 export function signup(credentials) {
     return userService.signup(credentials)
         .then(user => {
