@@ -6,11 +6,12 @@ const { useSelector } = ReactRedux
 export function TodoFilter({ onSetFilterBy, filterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    const debouncedSetFilterRef = useRef(utilService.debounce(onSetFilterBy, 500))
 
 
     useEffect(() => {
         // Notify parent
-        onSetFilterBy(filterByToEdit)
+        debouncedSetFilterRef.current(filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange({ target }) {
