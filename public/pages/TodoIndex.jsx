@@ -72,6 +72,7 @@ export function TodoIndex() {
         saveTodo(todoToSave)
             .then((savedTodo) => {
                 showSuccessMsg(`Todo is ${(savedTodo.isDone) ? 'done' : 'back on your list'}`)
+                console.log('save to do done')
                 if (todoToSave.isDone) {
                     updateBalance(10)
                         .catch(err => {
@@ -83,7 +84,7 @@ export function TodoIndex() {
             })
             .catch(err => {
                 console.log('err:', err)
-                showErrorMsg('Cannot toggle todo ' + todoId)
+                showErrorMsg('Cannot toggle todo ' + todo._Id)
             })
     }
 
@@ -93,9 +94,7 @@ export function TodoIndex() {
             <TodoFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
             <TodoSort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
 
-            <div>
-                {user && <Link to="/todo/edit" className="btn" >Add Todo</Link>}
-            </div>
+
             <h2>Todos List</h2>
             {isLoading
                 ? <p>Loading...</p>

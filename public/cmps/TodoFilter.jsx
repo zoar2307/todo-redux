@@ -10,6 +10,7 @@ export function TodoFilter({ onSetFilterBy, filterBy }) {
 
     useEffect(() => {
         // Notify parent
+        onSetFilterBy(filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange({ target }) {
@@ -45,7 +46,6 @@ export function TodoFilter({ onSetFilterBy, filterBy }) {
                 <input value={filterBy.txt} onChange={handleChange}
                     type="search" placeholder="By Txt" id="txt" name="txt"
                 />
-                <label htmlFor="importance">Importance: </label>
                 <input value={filterBy.importance} onChange={handleChange}
                     type="number" placeholder="By Importance" id="importance" name="importance"
                 />

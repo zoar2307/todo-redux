@@ -1,6 +1,17 @@
 .todo-filter {
-    background-color: var(--clr2bg);
+    background-color: var(--header-footer-bg);
     padding: 1em;
     margin: 1em 0;
 }
 
+.todo-filter form input,
+select {
+    color: var(--header-color);
+    padding: 0.5em;
+    margin: 2em 1em;
+    margin-left: 0;
+    border: none;
+    border-radius: 0 0 0 0.5em;
+    outline: none;
+    height: 4vh;
+}

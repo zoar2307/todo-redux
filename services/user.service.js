@@ -21,19 +21,29 @@ function query() {
     return Promise.resolve(usersToReturn)
 }
 
+
 function getById(userId) {
-    return axios.get(BASE_URL + userId)
-        .then(res => res.data)
+    const selectUser = users.find(user => user._id === userId)
+    if (!selectUser) return Promise.reject(`Cant find ${userId}`)
+    return Promise.resolve(selectUser)
 }
 
+
 function save(user) {
-    user._id = utilService.makeId()
-    users.push(user)
+    if (user._id) {
+        user.updatedAt = Date.now()
+        const userIdx = users.findIndex(user => user._id === user._id)
+        users[userIdx] = { ...users[userIdx], ...user }
+    } else {
+        user._id = utilService.makeId()
+        user.balance = 1000
+        users.push(user)
+    }
     return _saveUsersToFile()
         .then(() => ({
             _id: user._id,
             fullname: user.fullname,
-            balance: 10000,
+            balance: user.balance,
         }))
 }
 
@@ -44,7 +54,8 @@ function checkLogin({ username, password }) {
         user = {
             _id: user._id,
             fullname: user.fullname,
-            isAdmin: user.isAdmin,
+            balance: user.balance,
+
         }
     }
     return Promise.resolve(user)

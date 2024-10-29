@@ -40,7 +40,6 @@ app.post('/api/todo', (req, res) => {
 })
 
 app.put('/api/todo', (req, res) => {
-    console.log(req.body)
     const { _id, txt, importance, isDone, backgroundColor } = req.body
     const todoToSave = { _id, txt, importance, isDone, backgroundColor }
     todoService.save(todoToSave)
@@ -71,6 +70,15 @@ app.get('/api/user/:userId', (req, res) => {
         .then(user => {
             res.send(user)
         }).catch(err => loggerService.error('Cant load user' + err))
+})
+
+app.put('/api/user/:userId', (req, res) => {
+    const { _id, balance, fullname } = req.body
+    const userToSave = { _id, balance, fullname }
+    userService.save(userToSave)
+        .then(user => {
+            res.send(user)
+        }).catch(err => loggerService.error('Cant save user' + err))
 })
 // USER AUTH
 

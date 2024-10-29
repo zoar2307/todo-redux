@@ -1,12 +1,18 @@
 import { utilService } from "../services/util.service.js"
 
 const { useState, useEffect, useRef } = React
+const { useSelector } = ReactRedux
+const { Link, useSearchParams } = ReactRouterDOM
+
 
 
 export function TodoSort({ filterBy, onSetFilterBy }) {
 
     const [sortByToEdit, setSortByToEdit] = useState({ ...filterBy })
     const debouncedSetFilterRef = useRef(utilService.debounce(onSetFilterBy, 500))
+    const user = useSelector(storeState => storeState.userModule.loggedinUser)
+
+
 
 
     useEffect(() => {
@@ -43,6 +49,8 @@ export function TodoSort({ filterBy, onSetFilterBy }) {
                 <option value="txt">Text</option>
                 <option value="createdAt">Time</option>
             </select>
+            {user && <Link to="/todo/edit" className="btn" >Add Todo</Link>}
+
         </div>
     )
 }

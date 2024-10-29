@@ -1,29 +1,47 @@
 .app-header {
-    background-color: var(--clr1);
-    color: var(--clr2bg-light);
-    
+    background-color: var(--header-footer-bg);
+    color: var(--header-color);
+
 }
 
 .header-container {
     display: flex;
     align-items: center;
-
-}
-
-.header-container h1 {
-    flex-grow: 1;
+    justify-content: center;
+    height: 70px;
 }
 
 .app-nav {
     display: flex;
     gap: 15px;
+    margin-left: auto;
 }
 
+.header-container .user {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.header-container .user p {
+    margin: 0 0.2em;
+    color: rgb(96, 86, 28);
+    padding: 0.2em;
+}
 
 a.active {
-    color: rgb(241, 212, 241);
+    color: rgb(0, 0, 0);
     font-weight: 600;
     text-decoration: underline;
+}
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form {
+    margin: 0;
 }
 
 

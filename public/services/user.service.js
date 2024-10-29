@@ -1,3 +1,4 @@
+import axios from "axios"
 import { storageService } from "./async-storage.service.js"
 
 
@@ -6,7 +7,7 @@ export const userService = {
     login,
     logout,
     signup,
-    // getById,
+    getById,
     query,
     getEmptyCredentials,
     updateBalance
@@ -23,9 +24,11 @@ function query() {
         .then(res => res.data)
 }
 
-// function getById(userId) {
-//     return storageService.get(STORAGE_KEY, userId)
-// }
+function getById(userId) {
+    return axios.get(BASE_URL + userId)
+        .then(res => res.data)
+}
+
 
 function login({ username, password }) {
     return axios.post('/api/auth/login', { username, password })
@@ -53,7 +56,7 @@ function logout() {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
+    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
 function _setLoggedInUser(user) {
@@ -74,14 +77,19 @@ function getEmptyCredentials() {
 
 function updateBalance(diff) {
     const loggedInUserId = getLoggedinUser()._id
+
     return userService.getById(loggedInUserId)
         .then(user => {
             user.balance += diff
-            return storageService.put(STORAGE_KEY, user)
+            return axios.put(BASE_URL + user._id, {
+                _id: user._id, fullname: user.fullname, balance: user.balance
+            })
+                .then(res => res.data)
 
         })
         .then(user => {
-            _setLoggedinUser(user)
+            console.log(user)
+            // _setLoggedinUser(user)
             return user.balance
         })
 }
