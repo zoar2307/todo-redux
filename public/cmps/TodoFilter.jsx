@@ -1,17 +1,15 @@
+import { utilService } from "../services/util.service.js"
 
-const { useState, useEffect } = React
-const { useSelector } = ReactRedux
+const { useState, useEffect, useRef } = React
 
 
 export function TodoFilter({ onSetFilterBy, filterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-    const debouncedSetFilterRef = useRef(utilService.debounce(onSetFilterBy, 500))
 
 
     useEffect(() => {
         // Notify parent
-        debouncedSetFilterRef.current(filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange({ target }) {
